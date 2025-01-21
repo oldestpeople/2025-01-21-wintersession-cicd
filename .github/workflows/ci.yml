@@ -1,15 +1,24 @@
 name: Our CI
 
-on: push
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   test:
+    name: Test jobs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Second step
-        run: |
-          echo "Hello world"
-          mkdir mydir
-          ls -la
+      - name: Install python
+        uses: actions/setup-python@5
+        with: 
+          python-version: "3.11"
+      - name: Install package
+        run: pip install .[test]
+      - name: Run test
+        run: python -m pytest
