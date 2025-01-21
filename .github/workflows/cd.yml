@@ -1,0 +1,29 @@
+on:
+  release:
+  type:
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: 
+      - uses: 
+  publish:
+    need: [build]
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/cicdexample
+    permissions:
+      id-token: write
+    steps:
+      - uses: action/download-artifact@v3
+        with:
+          name: artifact
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@release/v6
+        with:
+          repository-url: https://test.pypi.org/
