@@ -1,0 +1,15 @@
+on: push
+jobs:
+  test:
+    name: Test jobs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Install python
+        uses: actions/setup-python
+        with: 
+          python-version: "3.11"
+      - name: Install markdown slides
+        run: pip install git+https://gitlab.com/da_doomer/markdown-slides.git
+      - name: 
